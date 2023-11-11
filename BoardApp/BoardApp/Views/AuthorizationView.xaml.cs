@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BoardApp
+namespace BoardApp.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for AuthorizationView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AuthorizationView : UserControl
     {
-        public MainWindow()
+        public AuthorizationView()
         {
             InitializeComponent();
         }

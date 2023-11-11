@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BoardApp.ViewModels.Base
 {
-    internal abstract class ViewModelBase : INotifyPropertyChanged
+    public abstract class MyViewModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
