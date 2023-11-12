@@ -10,20 +10,71 @@
              TextElement.Foreground="{DynamicResource MaterialDesign.Brush.Secondary.Dark}"
              Background="{x:Null}">
 
-    <!--<md:Card Background="Transparent">
+    <md:Card Background="Transparent">
 
-        <StackPanel>
-            <Button Name="Close"
-                    Command="{Binding CloseAppCommand}"
-                    HorizontalAlignment="Right"
-                    Margin="0 20 20 0"
-                    Style="{DynamicResource MaterialDesignFlatButton}"       
-                    Height="40">
+        <md:DialogHost CloseOnClickAway="True" x:Name="DialogHost">
+            <StackPanel>
 
-                <md:PackIcon Kind="Close"/>
-            </Button>
-        </StackPanel>
+                <TextBlock Margin="0 45 0 5" HorizontalAlignment="Center" FontSize="28" FontWeight="Bold" Text="Welcome To The Club"/>
+                <TextBlock FontFamily="17" FontWeight="SemiBold" HorizontalAlignment="Center" Text="Sing Up"/>
 
-    </md:Card>-->
+                <TextBox Margin="0 50 0 0" 
+                         Name="FirstName"
+                         Width="300" FontSize="18" 
+                         md:HintAssist.Hint="FirstName" 
+                         BorderThickness="2"
+                         BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark.Foreground}"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <TextBox Margin="0 20 0 0" 
+                         Name="LastName"
+                         Width="300" FontSize="18" 
+                         md:HintAssist.Hint="LastName" 
+                         BorderThickness="2"
+                         BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark.Foreground}"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <TextBox Margin="0 20 0 0" 
+                         Name="Username"
+                         Width="300" FontSize="18" 
+                         md:HintAssist.Hint="Username" 
+                         BorderThickness="2"
+                         BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark.Foreground}"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <TextBox Margin="0 20 0 0" 
+                         Name="Password"
+                         Width="300" FontSize="18" 
+                         md:HintAssist.Hint="Password" 
+                         BorderThickness="2"
+                         BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark.Foreground}"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Button Margin="0 20 0 0"
+                        Style="{StaticResource MaterialDesignFlatMidBgButton}"
+                        Height="53"
+                        Width="300"
+                        md:ButtonAssist.CornerRadius="10"
+                        FontSize="18"
+                        Content="Sign Up"/>
+
+                <Button Command=""
+                        Style="{DynamicResource MaterialDesignFlatButton}"
+                        Height="40"
+                        HorizontalAlignment="Center"
+                        Margin="20">
+
+                    <md:PackIcon Kind="ArrowBack"/>
+
+                </Button>
+
+            </StackPanel>
+        </md:DialogHost>
+
+    </md:Card>
     
 </UserControl>

@@ -8,21 +8,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="760" d:DesignWidth="450">
 
-    <!--<md:Card Background="Transparent">
+    <md:Card Background="Transparent">
 
         <md:DialogHost CloseOnClickAway="True" x:Name="DialogHost">
             <StackPanel>
-
-                <Button Name="Close"
-                        Command="{Binding CloseAppCommand}"
-                        HorizontalAlignment="Right"
-                        Margin="0 20 20 0"
-                        Style="{DynamicResource MaterialDesignFlatButton}"       
-                        Height="40">
-
-                    <md:PackIcon Kind="Close"/>
-
-                </Button>
 
                 <TextBlock Margin="0 45 0 5" HorizontalAlignment="Center" FontSize="28" FontWeight="Bold" Text="Welcome Back!"/>
                 <TextBlock FontFamily="17" FontWeight="SemiBold" HorizontalAlignment="Center" Text="Sing In"/>
@@ -69,6 +58,6 @@
             
         </md:DialogHost>
 
-    </md:Card>-->
+    </md:Card>
 
 </UserControl>
