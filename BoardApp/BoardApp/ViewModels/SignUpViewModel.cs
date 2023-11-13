@@ -1,24 +1,43 @@
-﻿using BoardApp.Services.Interfaces;
-using BoardApp.ViewModels.Base;
+﻿using BoardApp.Infrastructure.Commands;
+using BoardApp.Services.Interfaces;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Messaging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace BoardApp.ViewModels
 {
     internal class SignUpViewModel : ViewModelBase
     {
         private readonly INavigationService _navigationService;
-        private readonly IMessenger _messenger;
+        private readonly IAuthorizationService _authorizationService;
 
-        public SignUpViewModel(INavigationService navigationService, IMessenger messenger)
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string Email { get; set; }
+
+        public SignUpViewModel(INavigationService navigationService, IAuthorizationService authorizationService)
         {
             _navigationService = navigationService;
-            _messenger = messenger;
+            _authorizationService = authorizationService;
+
+            GoBackCommand = new LambdaCommand(OnGoBackCommandExecuted, CanGoBackCommandExecute);
+            SignUpCommand = new LambdaCommand(OnSignUpCommandExecuted, CanSignUpCommandExecute);
         }
+
+
+        #region GoBackCommand
+
+        public ICommand GoBackCommand { get; }
+        private bool CanGoBackCommandExecute(object p) => true;
+        private void OnGoBackCommandExecuted(object p) => _navigationService.NavigateTo<AuthorizationViewModel>();
+
+        #endregion
+
+        #region SignUpCommand
+
+        public ICommand SignUpCommand { get; }
+        private bool CanSignUpCommandExecute(object p) => true;
+        private void OnSignUpCommandExecuted(object p) => _authorizationService.SignUp(Username, Password, Email);
+
+        #endregion
     }
 }

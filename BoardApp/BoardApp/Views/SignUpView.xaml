@@ -19,24 +19,6 @@
                 <TextBlock FontFamily="17" FontWeight="SemiBold" HorizontalAlignment="Center" Text="Sing Up"/>
 
                 <TextBox Margin="0 50 0 0" 
-                         Name="FirstName"
-                         Width="300" FontSize="18" 
-                         md:HintAssist.Hint="FirstName" 
-                         BorderThickness="2"
-                         BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark.Foreground}"
-                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                         Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
-
-                <TextBox Margin="0 20 0 0" 
-                         Name="LastName"
-                         Width="300" FontSize="18" 
-                         md:HintAssist.Hint="LastName" 
-                         BorderThickness="2"
-                         BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark.Foreground}"
-                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                         Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
-
-                <TextBox Margin="0 20 0 0" 
                          Name="Username"
                          Width="300" FontSize="18" 
                          md:HintAssist.Hint="Username" 
@@ -46,15 +28,34 @@
                          Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <TextBox Margin="0 20 0 0" 
+                         Name="Email"
+                         Width="300" FontSize="18" 
+                         md:HintAssist.Hint="Email" 
+                         BorderThickness="2"
+                         BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark.Foreground}"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <TextBox Margin="0 20 0 0" 
                          Name="Password"
                          Width="300" FontSize="18" 
                          md:HintAssist.Hint="Password" 
                          BorderThickness="2"
                          BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark.Foreground}"
                          Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                         Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <Button Margin="0 20 0 0"
+                <TextBox Margin="0 20 0 0" 
+                         Name="ConfirmPassword"
+                         Width="300" FontSize="18" 
+                         md:HintAssist.Hint="Confirm Password" 
+                         BorderThickness="2"
+                         BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark.Foreground}"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Button Command="{Binding SignUpCommand}"
+                        Margin="0 20 0 0"
                         Style="{StaticResource MaterialDesignFlatMidBgButton}"
                         Height="53"
                         Width="300"
@@ -62,7 +63,7 @@
                         FontSize="18"
                         Content="Sign Up"/>
 
-                <Button Command=""
+                <Button Command="{Binding GoBackCommand}"
                         Style="{DynamicResource MaterialDesignFlatButton}"
                         Height="40"
                         HorizontalAlignment="Center"

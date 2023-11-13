@@ -25,18 +25,18 @@
                          Style="{StaticResource MaterialDesignOutlinedTextBox}"
                          Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <PasswordBox Margin="0 20 0 0"
-                             Name="Password"
-                             Width="300"
-                             FontSize="18"
-                             md:HintAssist.Hint="Password"
-                             BorderThickness="2"
-                             BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark.Foreground}"
-                             Style="{StaticResource MaterialDesignOutlinedPasswordBox}"/>
+                <TextBox Margin="0 20 0 0" 
+                         Name="Password"
+                         Width="300" FontSize="18" 
+                         md:HintAssist.Hint="Password" 
+                         BorderThickness="2"
+                         BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark.Foreground}"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <Button Margin="0 20 0 0"
+                <Button Command="{Binding SignInCommand}"
+                        Margin="0 20 0 0"
                         Name="SignInBtn"
-                        Command="{Binding CloseAppCommand}"
                         Style="{StaticResource MaterialDesignFlatMidBgButton}"
                         Height="53"
                         Width="300"
