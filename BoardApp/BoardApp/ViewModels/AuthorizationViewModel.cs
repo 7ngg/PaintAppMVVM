@@ -10,23 +10,25 @@ namespace BoardApp.ViewModels
     {
         private readonly INavigationService _navigationService;
         private readonly IAuthorizationService _authorizationService;
+        private readonly IUserDialogService _userDialogService;
 
         public string Username { get; set; }
         public string Password { get; set; }
 
 
-        public AuthorizationViewModel(INavigationService navigationService, IAuthorizationService authorizationService)
+        public AuthorizationViewModel(INavigationService navigationService, IAuthorizationService authorizationService, IUserDialogService userDialogService)
         {
             _navigationService = navigationService;
             _authorizationService = authorizationService;
+            _userDialogService = userDialogService;
 
             SignUpCommand = new LambdaCommand(OnSignUpCommandExecuted, CanSignUpCommandExecute);
             SignInCommand = new LambdaCommand(OnSignInCommandExecuted, CanSignInCommandExecute);
         }
 
-#region Commands
+        #region Commands
 
-    #region SignUpCommand
+        #region SignUpCommand
 
         public ICommand SignUpCommand { get; }
         private bool CanSignUpCommandExecute(object p) => true;
@@ -43,6 +45,7 @@ namespace BoardApp.ViewModels
             if (_authorizationService.SignIn(Username, Password))
             {
                 MessageBox.Show("Successful");
+                _userDialogService.OpenWindow<BoardViewModel>();
             }
         }
 

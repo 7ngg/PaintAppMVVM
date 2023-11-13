@@ -7,14 +7,15 @@
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="MainView" Height="760" Width="450"
-        TextElement.Foreground="{DynamicResource MaterialDesign.Brush.Secondary.Dark}"
+        TextElement.Foreground="{StaticResource MaterialDesign.Brush.Primary}"
         Background="Transparent"
         AllowsTransparency="True"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen">
 
-    <Border CornerRadius="15"
-            Background="{DynamicResource MaterialDesign.Brush.Primary.Light}"
+    <!--CornerRadius="15"-->
+    <Border 
+            Background="#252525"
             Margin="25"
             MouseDown="Card_MouseDown">
 
@@ -29,7 +30,7 @@
                     Command="{Binding CloseAppCommand}"
                     HorizontalAlignment="Right"
                     Margin="0 20 20 0"
-                    Style="{DynamicResource MaterialDesignFlatButton}"       
+                    Style="{DynamicResource MaterialDesignFlatButton}" 
                     Height="40">
 
                 <md:PackIcon Kind="Close"/>

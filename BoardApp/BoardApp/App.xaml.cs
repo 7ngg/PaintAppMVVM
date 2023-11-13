@@ -4,7 +4,6 @@ using BoardApp.ViewModels;
 using BoardApp.Views;
 using GalaSoft.MvvmLight.Messaging;
 using SimpleInjector;
-using System.IO;
 using System.Windows;
 
 namespace BoardApp
@@ -19,10 +18,12 @@ namespace BoardApp
             Container.RegisterSingleton<INavigationService, NavigationService>();
             Container.RegisterSingleton<IUserSerializationService, UserSerializationService>();
             Container.RegisterSingleton<IAuthorizationService, AuthorizationService>();
+            Container.RegisterSingleton<IUserDialogService, UserDialogService>();
 
             Container.RegisterSingleton<MainViewModel>();
             Container.RegisterSingleton<AuthorizationViewModel>();
             Container.RegisterSingleton<SignUpViewModel>();
+            Container.RegisterSingleton<BoardViewModel>();
 
             Container.Verify();
         }
