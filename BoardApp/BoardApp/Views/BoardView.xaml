@@ -11,7 +11,6 @@
         Background="#252525">
 
     <Grid MouseDown="Grid_MouseDown">
-        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50"/>
             <ColumnDefinition/>
@@ -24,7 +23,8 @@
 
         <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
 
-            <Button Command="{Binding MinimizeCommand}"
+            <Button Click="Minimize_Click"
+                    Command="{Binding MinimizeCommand}"
                     Height="30"
                     Style="{DynamicResource MaterialDesignFlatButton}">
 
@@ -32,7 +32,7 @@
 
             </Button>
 
-            <Button Command="{Binding MaximizeCommand}"
+            <Button Click="Maximize_Click"
                     Height="30"
                     Style="{DynamicResource MaterialDesignFlatButton}">
 
@@ -40,7 +40,7 @@
                 <md:PackIcon Kind="Maximize"/>
 
             </Button>
-            <Button Command="{Binding CloseCommand}"
+            <Button Click="Close_Click"
                     Height="30"
                     Style="{DynamicResource MaterialDesignFlatButton}">
 
@@ -52,7 +52,7 @@
 
         <Border Grid.Column="1" Grid.Row="1">
             <InkCanvas Background="Gray">
-                <!--<ContentControl Content="{Binding canvas}"/>-->
+                <ContentControl Content="{Binding canvas}"/>
             </InkCanvas>
         </Border>
 

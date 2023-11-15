@@ -5,7 +5,7 @@ using System.Windows.Controls;
 
 namespace BoardApp.ViewModels
 {
-    internal class BoardViewModel : Window
+    public class BoardViewModel : Window
     {
         public InkCanvas canvas { get; set; } = new();
 

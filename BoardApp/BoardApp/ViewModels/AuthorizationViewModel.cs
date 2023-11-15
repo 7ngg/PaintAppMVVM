@@ -1,6 +1,8 @@
 ﻿using BoardApp.Infrastructure.Commands;
 using BoardApp.Services.Interfaces;
+using BoardApp.Views;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using System.Windows;
 using System.Windows.Input;
 
@@ -34,9 +36,9 @@ namespace BoardApp.ViewModels
         private bool CanSignUpCommandExecute(object p) => true;
         private void OnSignUpCommandExecuted(object p) => _navigationService.NavigateTo<SignUpViewModel>();
 
-    #endregion
+        #endregion
 
-    #region SignInCommand
+        #region SignInCommand
 
         public ICommand SignInCommand { get; }
         private bool CanSignInCommandExecute(object p) => true;
@@ -45,12 +47,12 @@ namespace BoardApp.ViewModels
             if (_authorizationService.SignIn(Username, Password))
             {
                 MessageBox.Show("Successful");
-                _userDialogService.OpenWindow<BoardViewModel>();
+                _userDialogService.OpenWindow<BoardView>();
             }
         }
 
-    #endregion
+        #endregion
 
-#endregion
+        #endregion
     }
 }
