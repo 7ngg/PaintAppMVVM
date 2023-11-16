@@ -5,6 +5,8 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System.Windows;
 using System.Windows.Input;
+using BoardApp.Infrastructure.Regexes;
+using System.Windows.Navigation;
 
 namespace BoardApp.ViewModels
 {
@@ -24,6 +26,9 @@ namespace BoardApp.ViewModels
             _authorizationService = authorizationService;
             _userDialogService = userDialogService;
 
+            Username = string.Empty;
+            Password = string.Empty;
+
             SignUpCommand = new LambdaCommand(OnSignUpCommandExecuted, CanSignUpCommandExecute);
             SignInCommand = new LambdaCommand(OnSignInCommandExecuted, CanSignInCommandExecute);
         }
@@ -41,7 +46,15 @@ namespace BoardApp.ViewModels
         #region SignInCommand
 
         public ICommand SignInCommand { get; }
-        private bool CanSignInCommandExecute(object p) => true;
+        private bool CanSignInCommandExecute(object p)
+        {
+            if (UserModelRegex.UsernameRegex.IsMatch(Username) && UserModelRegex.PasswordRegex.IsMatch(Password))
+            {
+                return true;
+            }
+
+            return false;
+        }
         private void OnSignInCommandExecuted(object p)
         {
             if (_authorizationService.SignIn(Username, Password))
