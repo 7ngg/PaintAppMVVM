@@ -12,13 +12,25 @@ namespace BoardApp.Infrastructure.Commands
         private readonly Delegate? _action;
         private readonly Delegate? _canExecute;
 
-        public LambdaCommand(Action<object> action, Func<object, bool> canExecute = null)
+        public LambdaCommand(Action<object?> action, Func<object?, bool>? canExecute = null)
         {
             _action = action ?? throw new ArgumentNullException(nameof(action));
             _canExecute = canExecute;
         }
 
-        public LambdaCommand(Action action, Func<bool> canExecute = null)
+        public LambdaCommand(Action action, Func<bool>? canExecute = null)
+        {
+            _action = action;
+            _canExecute = canExecute;
+        }
+
+        public LambdaCommand(Action action, Func<object?, bool> canExecute)
+        {
+            _action = action;
+            _canExecute = canExecute;
+        }
+
+        public LambdaCommand(Action<object?> action, Func<bool>? canExecute)
         {
             _action = action;
             _canExecute = canExecute;

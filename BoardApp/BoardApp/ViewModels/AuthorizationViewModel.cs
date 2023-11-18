@@ -5,6 +5,7 @@ using System.Windows.Input;
 using BoardApp.Infrastructure.Regexes;
 using BoardApp.ViewModels.Base;
 using BoardApp.Models;
+using System.Windows.Controls;
 
 namespace BoardApp.ViewModels
 {
@@ -49,18 +50,27 @@ namespace BoardApp.ViewModels
         #region SignInCommand
 
         public ICommand SignInCommand { get; }
-        private bool CanSignInCommandExecute()
+        private bool CanSignInCommandExecute(object param)
         {
-            if (UserModelRegex.UsernameRegex.IsMatch(Username) && UserModelRegex.PasswordRegex.IsMatch(Password))
+            if (param != null)
             {
-                return true;
+                object[] res = (object[])param;
+
+                var password = (PasswordBox)res[0];
+                Password = password.Password.ToString();
+
+                if (UserModelRegex.UsernameRegex.IsMatch(Username) && UserModelRegex.PasswordRegex.IsMatch(Password))
+                {
+                    return true;
+                }
             }
 
             return false;
         }
-        private void OnSignInCommandExecuted()
+        private void OnSignInCommandExecuted(object param)
         {
-            _currentUser = _authorizationService.SignIn(Username, Password);
+            _currentUser = _authorizationService.SignIn(Username, Password);    
+                
             if (_currentUser != null)
             {
                 MessageBox.Show("Successful");

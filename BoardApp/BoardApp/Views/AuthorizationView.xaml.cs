@@ -13,11 +13,5 @@ namespace BoardApp.Views
         {
             InitializeComponent();
         }
-
-        private void Password_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            var model = App.Container.GetInstance<AuthorizationViewModel>();
-            model.Password = passwordBox.Password;
-        }
     }
 }

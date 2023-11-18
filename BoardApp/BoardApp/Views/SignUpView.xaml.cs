@@ -15,17 +15,5 @@ namespace BoardApp.Views
         {
             InitializeComponent();
         }
-
-        private void Password_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            var model = App.Container.GetInstance<SignUpViewModel>();
-            model.Password = password.Password;
-        }
-
-        private void confirmPassword_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            var model = App.Container.GetInstance<SignUpViewModel>();
-            model.ConfirmPassword = confirmPassword.Password;
-        }
     }
 }

@@ -2,7 +2,9 @@
 using BoardApp.Infrastructure.Regexes;
 using BoardApp.Services.Interfaces;
 using BoardApp.ViewModels.Base;
+using GalaSoft.MvvmLight.Command;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace BoardApp.ViewModels
@@ -29,7 +31,24 @@ namespace BoardApp.ViewModels
             GoBackCommand = new LambdaCommand(OnGoBackCommandExecuted, CanGoBackCommandExecute);
             SignUpCommand = new LambdaCommand(OnSignUpCommandExecuted, CanSignUpCommandExecute);
         }
+        //public RelayCommand<object> SignUpCommand
+        //{
+        //    get => new(param =>
+        //    {
+                
+        //        if (param != null)
+        //        {
+        //            object[] res = (object[])param;
 
+        //            var password = (PasswordBox) res[0];
+        //            var confirm = (PasswordBox)res[1];
+        //            if(password.Password.ToString() == confirm.Password.ToString())
+        //            {
+        //                _authorizationService.SignUp(Username, Password, Email);
+        //            }
+        //        }
+        //    });
+        //}
         #region Commands
 
         #region GoBackCommand
@@ -43,9 +62,23 @@ namespace BoardApp.ViewModels
         #region SignUpCommand
 
         public ICommand SignUpCommand { get; }
-        private bool CanSignUpCommandExecute()
+        private bool CanSignUpCommandExecute(object param)
         {
-            if (ValidateInputs()) return true;
+            if (param != null)
+            {
+                object[] res = (object[])param;
+
+                var password = (PasswordBox)res[0];
+                var confirm = (PasswordBox)res[1];
+                Password = password.Password.ToString();
+                ConfirmPassword = confirm.Password.ToString();
+
+                if (Password == ConfirmPassword && ValidateInputs())
+                {
+                    return true;
+                }
+            }
+
             return false;
         }
         private void OnSignUpCommandExecuted() => _authorizationService.SignUp(Username, Password, Email);
