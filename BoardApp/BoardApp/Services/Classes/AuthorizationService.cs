@@ -12,7 +12,7 @@ namespace BoardApp.Services.Classes
             _userSerializationService = userSerializationService;
         }
 
-        public bool SignIn(string username, string password)
+        public UserModel SignIn(string username, string password)
         {
             var list = _userSerializationService.Deserialize<UserModel>();
 
@@ -20,11 +20,14 @@ namespace BoardApp.Services.Classes
             {
                 if (item.Username == username && item.Password == password)
                 {
-                    return true;
+                    return new UserModel(item.Username, item.Password, item.Email)
+                    {
+                        Boards = item.Boards
+                    };
                 }
             }
 
-            return false;
+            return null;
         }
 
         public void SignUp(string username, string password, string email)

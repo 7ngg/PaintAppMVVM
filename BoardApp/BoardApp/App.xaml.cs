@@ -26,7 +26,7 @@ namespace BoardApp
             Container.RegisterSingleton<AuthorizationViewModel>();
             Container.RegisterSingleton<SignUpViewModel>();
 
-            Container.Register<UserBoardsViewModel>(Lifestyle.Transient);
+            Container.RegisterSingleton<UserBoardsViewModel>();
             Container.Register<BoardViewModel>(Lifestyle.Transient);
 
             Container.Register<MainView>(() =>

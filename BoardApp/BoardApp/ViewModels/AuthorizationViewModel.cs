@@ -4,13 +4,16 @@ using System.Windows;
 using System.Windows.Input;
 using BoardApp.Infrastructure.Regexes;
 using BoardApp.ViewModels.Base;
+using BoardApp.Models;
 
 namespace BoardApp.ViewModels
 {
-    internal class AuthorizationViewModel : MyViewModelBase
+    public class AuthorizationViewModel : MyViewModelBase
     {
         private readonly INavigationService _navigationService;
         private readonly IAuthorizationService _authorizationService;
+        private readonly IDataService _dataService;
+        public UserModel _currentUser;
 
         public string Username { get; set; }
 
@@ -21,7 +24,7 @@ namespace BoardApp.ViewModels
         }
 
 
-        public AuthorizationViewModel(INavigationService navigationService, IAuthorizationService authorizationService)
+        public AuthorizationViewModel(INavigationService navigationService, IAuthorizationService authorizationService, IDataService dataService)
         {
             _navigationService = navigationService;
             _authorizationService = authorizationService;
@@ -31,6 +34,7 @@ namespace BoardApp.ViewModels
 
             GoToRegistrationCommand = new LambdaCommand(OnGoToRegistrationCommandExecuted);
             SignInCommand = new LambdaCommand(OnSignInCommandExecuted, CanSignInCommandExecute);
+            _dataService = dataService;
         }
 
         #region Commands
@@ -56,9 +60,13 @@ namespace BoardApp.ViewModels
         }
         private void OnSignInCommandExecuted()
         {
-            if (_authorizationService.SignIn(Username, Password))
+            _currentUser = _authorizationService.SignIn(Username, Password);
+            if (_currentUser != null)
             {
                 MessageBox.Show("Successful");
+
+                _dataService.SendData(_currentUser);
+
                 _navigationService.NavigateTo<UserBoardsViewModel>();
             }
         }

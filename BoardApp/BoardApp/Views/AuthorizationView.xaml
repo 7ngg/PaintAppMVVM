@@ -16,13 +16,13 @@
             <TextBlock FontFamily="17" FontWeight="SemiBold" HorizontalAlignment="Center" Text="Sing In"/>
 
             <TextBox Margin="0 50 0 0" 
-                        Name="Username"
-                        Width="300" FontSize="18" 
-                        md:HintAssist.Hint="Username" 
-                        BorderThickness="2"
-                        BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark.Foreground}"
-                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                        Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
+                     Name="Username"
+                     Width="300" FontSize="18" 
+                     md:HintAssist.Hint="Username" 
+                     BorderThickness="2"
+                     BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark.Foreground}"
+                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                     Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
 
             <PasswordBox Margin="0 20 0 0" 
                          Name="passwordBox"

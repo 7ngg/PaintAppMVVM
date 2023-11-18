@@ -14,7 +14,6 @@ namespace BoardApp.ViewModels
     public class BoardViewModel : MyViewModelBase
     {
         private readonly IBoardSerializationService _boardSerializationService;
-        private readonly IMessenger _messenger;
         
         private InkCanvasEditingMode _currentEditingMode;
 
@@ -27,18 +26,9 @@ namespace BoardApp.ViewModels
         }
 
 
-        public BoardViewModel(IBoardSerializationService boardSerializationService, IMessenger messenger)
+        public BoardViewModel(IBoardSerializationService boardSerializationService)
         {
             _boardSerializationService = boardSerializationService;
-            _messenger = messenger;
-
-            _messenger.Register<UserDataMessage>(this, message =>
-            {
-                if (message.UserData != null)
-                {
-                    CurrentBoard = message.UserData as BoardModel;
-                }
-            });
 
             PenButtonCommand = new LambdaCommand(OnPenButtonCommandExecuted);
             EraserButtomCommand = new LambdaCommand(OnEraserButtomCommandExecuted);

@@ -1,8 +1,10 @@
 ﻿using BoardApp.Infrastructure.Commands;
+using BoardApp.Messages;
 using BoardApp.Models;
 using BoardApp.Services.Interfaces;
 using BoardApp.ViewModels.Base;
 using BoardApp.Views;
+using GalaSoft.MvvmLight.Messaging;
 using System.Collections.ObjectModel;
 using System.Reflection.Emit;
 using System.Windows.Ink;
@@ -15,6 +17,7 @@ namespace BoardApp.ViewModels
         private readonly INavigationService _navigationService;
         private readonly IUserDialogService _userDialogService;
         private readonly IDataService _dataService;
+        private readonly IMessenger _messenger;
 
         private ObservableCollection<BoardModel> _userBoards;
         public ObservableCollection<BoardModel> UserBoards
@@ -23,13 +26,23 @@ namespace BoardApp.ViewModels
             set => Set(ref _userBoards, value);
         }
 
+        public UserModel CurrentUser { get; set; }
         public BoardModel SelectedItem { get; set; }
 
-        public UserBoardsViewModel(INavigationService navigationService, IUserDialogService userDialogService, IDataService dataService)
+        public UserBoardsViewModel(INavigationService navigationService, IUserDialogService userDialogService, IDataService dataService, IMessenger messenger)
         {
             _navigationService = navigationService;
             _userDialogService = userDialogService;
             _dataService = dataService;
+            _messenger = messenger;
+
+            _messenger.Register<UserDataMessage>(this, message =>
+            {
+                if (message.UserData != null)
+                {
+                    CurrentUser = message.UserData as UserModel;
+                }
+            });
 
             SignOutCommand = new LambdaCommand(OnSignOutCommandExecuted);
             NewBoardCommand = new LambdaCommand(OnNewBoardCommandExecuted);

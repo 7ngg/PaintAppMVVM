@@ -1,6 +1,6 @@
 ﻿namespace BoardApp.Models
 {
-    interface IData
+    public interface IData
     {
 
     }
