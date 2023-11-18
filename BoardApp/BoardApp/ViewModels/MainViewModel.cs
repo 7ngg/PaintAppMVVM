@@ -1,19 +1,20 @@
 ﻿using BoardApp.Infrastructure.Commands;
 using BoardApp.Messages;
 using BoardApp.Services.Interfaces;
+using BoardApp.ViewModels.Base;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using System.Windows.Input;
 
 namespace BoardApp.ViewModels
 {
-    class MainViewModel : ViewModelBase
+    class MainViewModel : MyViewModelBase
     {
         private readonly IMessenger _messenger;
         private readonly INavigationService _navigationService;
         
-        private ViewModelBase _currentView;
-        public ViewModelBase CurrentView
+        private MyViewModelBase _currentView;
+        public MyViewModelBase CurrentView
         {
             get => _currentView;
             set => Set(ref _currentView, value);
@@ -38,8 +39,8 @@ namespace BoardApp.ViewModels
         #region CloseAppCommand
 
         public ICommand CloseAppCommand { get; }
-        private bool CanCloseAppCommandExecute(object p) => true;
-        private void OnCloseAppCommandExecuted(object p) => App.Current.Shutdown();
+        private bool CanCloseAppCommandExecute() => true;
+        private void OnCloseAppCommandExecuted() => App.Current.Shutdown();
        
         #endregion
     }

@@ -79,7 +79,7 @@ namespace BoardApp.Services.Classes
             window = App.Container.GetInstance<T>();
             window.Closed += (_, _) => _current = null;
             _current = window;
-            window.Show();
+            window.ShowDialog();
         }
     }
 }

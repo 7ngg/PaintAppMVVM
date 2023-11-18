@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="BoardApp.Views.UserBoardsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:BoardApp.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="760" d:DesignWidth="450">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="0.2*"/>
+        </Grid.RowDefinitions>
+        
+        <ListBox ItemsSource="{Binding UserBoards}"
+                 SelectedItem="{Binding SelectedItem}"
+                 Grid.Row="0"
+                 Margin="20"
+                 Style="{StaticResource MaterialDesignNavigationAccentListBox}"
+                 >
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding Name}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Dark.Foreground}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            
+        </ListBox>
+
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+
+            <Button Command="{Binding SignOutCommand}"
+                    Margin="0 0 30 0"
+                    Width="130" Height="53" FontSize="18"
+                    Style="{DynamicResource MaterialDesignFlatDarkBgButton}"
+                    md:ButtonAssist.CornerRadius="10"
+                    Content="Sing Out"/>
+
+            <Button Command="{Binding NewBoardCommand}"
+                    Margin="0 0 0 0"
+                    Width="130" Height="53" FontSize="18"
+                    Style="{DynamicResource MaterialDesignFlatDarkBgButton}"
+                    md:ButtonAssist.CornerRadius="10"
+                    Content="New Board"/>
+
+        </StackPanel>
+        
+    </Grid>
+</UserControl>

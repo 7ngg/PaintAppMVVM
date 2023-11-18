@@ -35,23 +35,23 @@
                          Style="{StaticResource MaterialDesignOutlinedTextBox}"
                          Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <TextBox Margin="0 20 0 0" 
-                         Name="Password"
-                         Width="300" FontSize="18" 
-                         md:HintAssist.Hint="Password" 
-                         BorderThickness="2"
-                         BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark.Foreground}"
-                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                         Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"/>
+                <PasswordBox Margin="0 20 0 0" 
+                             Name="password"
+                             Width="300" FontSize="18" 
+                             md:HintAssist.Hint="Password" 
+                             BorderThickness="2"
+                             BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark.Foreground}"
+                             Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}"
+                             PasswordChanged="Password_PasswordChanged"/>
 
-                <TextBox Margin="0 20 0 0" 
-                         Name="ConfirmPassword"
-                         Width="300" FontSize="18" 
-                         md:HintAssist.Hint="Confirm Password" 
-                         BorderThickness="2"
-                         BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark.Foreground}"
-                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                         Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"/>
+                <PasswordBox Margin="0 20 0 0" 
+                             Name="confirmPassword"
+                             Width="300" FontSize="18" 
+                             md:HintAssist.Hint="Password" 
+                             BorderThickness="2"
+                             BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark.Foreground}"
+                             Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}"
+                             PasswordChanged="confirmPassword_PasswordChanged"/>
 
                 <Button Command="{Binding SignUpCommand}"
                         Margin="0 20 0 0"

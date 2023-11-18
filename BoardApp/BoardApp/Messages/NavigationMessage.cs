@@ -1,9 +1,9 @@
-﻿using GalaSoft.MvvmLight;
+﻿using BoardApp.ViewModels.Base;
 
 namespace BoardApp.Messages
 {
     public class NavigationMessage
     {
-        public ViewModelBase ViewModelType { get; set; }
+        public MyViewModelBase ViewModelType { get; set; }
     }
 }

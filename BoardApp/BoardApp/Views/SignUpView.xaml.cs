@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BoardApp.ViewModels;
+using BoardApp.ViewModels.Base;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace BoardApp.Views
 {
@@ -20,9 +10,22 @@ namespace BoardApp.Views
     /// </summary>
     public partial class SignUpView : UserControl
     {
+
         public SignUpView()
         {
             InitializeComponent();
+        }
+
+        private void Password_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            var model = App.Container.GetInstance<SignUpViewModel>();
+            model.Password = password.Password;
+        }
+
+        private void confirmPassword_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            var model = App.Container.GetInstance<SignUpViewModel>();
+            model.ConfirmPassword = confirmPassword.Password;
         }
     }
 }

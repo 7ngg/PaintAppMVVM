@@ -7,11 +7,11 @@ using System.Text.Json;
 
 namespace BoardApp.Services.Classes
 {
-    internal class UserSerializationService : IUserSerializationService
+    public class UserSerializationService : IUserSerializationService
     {
         private readonly string _fileName = "userData.json";
 
-        public List<T> Deserialize<T>() where T : UserModel
+        public List<T> Deserialize<T>()
         {
             List<T> users = new();
             var fileInfo = new FileInfo(_fileName);
@@ -27,7 +27,7 @@ namespace BoardApp.Services.Classes
             return users;
         }
 
-        public void Serialize<T>(T user) where T : UserModel
+        public void Serialize<T>(T user)
         {
             var tmpList = Deserialize<T>();
             using FileStream stream = new(_fileName, FileMode.OpenOrCreate);

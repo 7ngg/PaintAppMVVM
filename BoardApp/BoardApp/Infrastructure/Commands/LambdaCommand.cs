@@ -9,8 +9,8 @@ namespace BoardApp.Infrastructure.Commands
 {
     internal class LambdaCommand : MyCommand
     {
-        private readonly Action<object> _action;
-        private readonly Func<object, bool> _canExecute;
+        private readonly Delegate? _action;
+        private readonly Delegate? _canExecute;
 
         public LambdaCommand(Action<object> action, Func<object, bool> canExecute = null)
         {
@@ -18,14 +18,39 @@ namespace BoardApp.Infrastructure.Commands
             _canExecute = canExecute;
         }
 
+        public LambdaCommand(Action action, Func<bool> canExecute = null)
+        {
+            _action = action;
+            _canExecute = canExecute;
+        }
+
         public override bool CanExecute(object? parameter)
         {
-            return _canExecute?.Invoke(parameter) ?? true;
+            return _canExecute switch
+            {
+                null                            => true,
+                Func<bool> canExecute           => canExecute(),
+                Func<object, bool> canExecute   => canExecute(parameter),
+                _                               => throw new InvalidOperationException()
+            };
         }
 
         public override void Execute(object? parameter)
         {
-            _action(parameter);
+            switch (_action)
+            {
+                case Action execute:
+                    execute();
+                    break;
+
+                case Action<object?> execute:
+                    execute(parameter);
+                    break;
+
+                case null:
+                default:
+                    throw new InvalidOperationException();
+            }
         }
     }
 }

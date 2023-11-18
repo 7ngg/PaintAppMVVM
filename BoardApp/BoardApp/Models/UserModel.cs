@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 
 namespace BoardApp.Models
 {
-    class UserModel
+    public class UserModel : IData
     {
         public string Email { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
+        public ObservableCollection<BoardModel> Boards{ get; set; }
 
         public UserModel(string username, string password, string email)
         {

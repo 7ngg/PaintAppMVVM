@@ -1,6 +1,6 @@
 ﻿using BoardApp.Messages;
 using BoardApp.Services.Interfaces;
-using GalaSoft.MvvmLight;
+using BoardApp.ViewModels.Base;
 using GalaSoft.MvvmLight.Messaging;
 
 namespace BoardApp.Services.Classes
@@ -14,7 +14,7 @@ namespace BoardApp.Services.Classes
             _messenger = messenger;
         }
 
-        public void NavigateTo<T>() where T : ViewModelBase
+        public void NavigateTo<T>() where T : MyViewModelBase
         {
             _messenger.Send(new NavigationMessage()
             {

@@ -1,61 +1,87 @@
 ﻿using BoardApp.Infrastructure.Commands;
-using System.Windows;
 using System.Windows.Input;
 using System.Windows.Controls;
+using BoardApp.ViewModels.Base;
+using BoardApp.Services.Interfaces;
+using System.Windows.Ink;
+using System.IO;
+using BoardApp.Models;
+using GalaSoft.MvvmLight.Messaging;
+using BoardApp.Messages;
 
 namespace BoardApp.ViewModels
 {
-    public class BoardViewModel : Window
+    public class BoardViewModel : MyViewModelBase
     {
-        public InkCanvas canvas { get; set; } = new();
-
-        public BoardViewModel()
-        {
-            CloseCommand = new LambdaCommand(OnCloseCommandExecuted, CanCloseCommandExecute);
-            MaximizeCommand = new LambdaCommand(OnMaximizeCommandExecuted, CanMaximizeCommandExecute);
-            MinimizeCommand = new LambdaCommand(OnMinimizeCommandExecuted, CanMinimizeCommandExecute);
-            EraserButtomCommand = new LambdaCommand(OnEraserButtomCommandExecuted, CanEraserButtomCommandExecute);
-        }
-
-        #region CloseCommand
-
-        public ICommand CloseCommand { get; }
-        private bool CanCloseCommandExecute(object p) => true;
-        private void OnCloseCommandExecuted(object p) => App.Current.Shutdown();
-
-        #endregion
-
-        #region MaximizeCommand
+        private readonly IBoardSerializationService _boardSerializationService;
+        private readonly IMessenger _messenger;
         
-        public ICommand MaximizeCommand { get; }
-        public bool CanMaximizeCommandExecute(object p) => true;
-        private void OnMaximizeCommandExecuted(object p)
+        private InkCanvasEditingMode _currentEditingMode;
+
+        public BoardModel CurrentBoard { get; set; } = new();
+
+        public InkCanvasEditingMode CurrentEditingMode
         {
-            if (App.Current.MainWindow.WindowState == System.Windows.WindowState.Normal)
-            {
-                App.Current.MainWindow.WindowState = System.Windows.WindowState.Maximized;
-            }
-            else
-            {
-                App.Current.MainWindow.WindowState = System.Windows.WindowState.Normal;
-            }
+            get => _currentEditingMode;
+            set => Set(ref _currentEditingMode, value);
         }
 
-        #endregion
 
-        #region MinimizeCommand
+        public BoardViewModel(IBoardSerializationService boardSerializationService, IMessenger messenger)
+        {
+            _boardSerializationService = boardSerializationService;
+            _messenger = messenger;
 
-        public ICommand MinimizeCommand { get; }
-        private bool CanMinimizeCommandExecute(object p) => true;
-        private void OnMinimizeCommandExecuted(object p) => App.Current.MainWindow.WindowState = System.Windows.WindowState.Minimized;
+            _messenger.Register<UserDataMessage>(this, message =>
+            {
+                if (message.UserData != null)
+                {
+                    CurrentBoard = message.UserData as BoardModel;
+                }
+            });
+
+            PenButtonCommand = new LambdaCommand(OnPenButtonCommandExecuted);
+            EraserButtomCommand = new LambdaCommand(OnEraserButtomCommandExecuted);
+            SaveBoardCommand = new LambdaCommand(OnSaveBoardCommandExecuted, CanSaveBoardCommandExecute);
+
+            OnPenButtonCommandExecuted();
+        }
+
+        
+
+        #region Commands
+
+        #region PenButtonCommand
+
+        public ICommand PenButtonCommand { get; }
+        private void OnPenButtonCommandExecuted() => CurrentEditingMode = InkCanvasEditingMode.Ink;
 
         #endregion
 
         #region EraserButtomCommand
 
         public ICommand EraserButtomCommand { get; }
-        private bool CanEraserButtomCommandExecute(object p) => true;
-        private void OnEraserButtomCommandExecuted(object p) => canvas.EditingMode = InkCanvasEditingMode.EraseByPoint;
+        private void OnEraserButtomCommandExecuted() => CurrentEditingMode = InkCanvasEditingMode.EraseByPoint;
+
+        #endregion
+
+        #region SaveBoardCommand
+        public ICommand SaveBoardCommand { get; }
+        private bool CanSaveBoardCommandExecute() => true;
+        private void OnSaveBoardCommandExecuted()
+        {
+            string rootDirectory = @"C:\Users\tng\itstep-Projects\BoardApp\BoardApp\bin\Debug\net6.0-windows";
+            string targetDirectory = Path.Combine(rootDirectory, CurrentBoard.Name);
+
+            if(!Directory.Exists(targetDirectory))
+            {
+                Directory.CreateDirectory(targetDirectory);
+            }
+
+            _boardSerializationService.Serialize(CurrentBoard);
+        }
+
+        #endregion
 
         #endregion
     }

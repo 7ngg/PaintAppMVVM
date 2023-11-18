@@ -10,7 +10,7 @@
         Title="BoardView" Height="550" Width="900" MinHeight="550" MinWidth="900" WindowStyle="None"
         Background="#252525">
 
-    <Grid MouseDown="Grid_MouseDown">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50"/>
             <ColumnDefinition/>
@@ -21,7 +21,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" MouseDown="Grid_MouseDown">
 
             <Button Click="Minimize_Click"
                     Command="{Binding MinimizeCommand}"
@@ -50,9 +50,19 @@
 
         </StackPanel>
 
+        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
+            <Button Command="{Binding SaveBoardCommand}"
+                    Height="30"
+                    Style="{DynamicResource MaterialDesignFlatButton}">
+
+                <md:PackIcon Kind="ContentSave"/>
+
+            </Button>
+        </StackPanel>
+
         <Border Grid.Column="1" Grid.Row="1">
-            <InkCanvas Background="Gray">
-                <ContentControl Content="{Binding canvas}"/>
+            <InkCanvas Background="Gray" EditingMode="{Binding CurrentEditingMode}" Strokes="{Binding CurrentBoardStrokes}">
+                <!--<ContentControl Content="{Binding canvas}"/>-->
             </InkCanvas>
         </Border>
 
@@ -60,7 +70,8 @@
             
             <ToggleButton Style="{DynamicResource MaterialDesignFlatButton}"
                           Padding="5"
-                          IsChecked="True">
+                          IsChecked="True"
+                          Command="{Binding PenButtonCommand}">
 
                 <md:PackIcon Kind="Pen"/>
 
@@ -76,7 +87,7 @@
             </ToggleButton>
             
         </StackPanel>
-        
+
     </Grid>
 
 </Window>
