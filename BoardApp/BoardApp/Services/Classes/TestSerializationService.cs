@@ -1,5 +1,6 @@
 ﻿using BoardApp.Models;
 using BoardApp.Services.Interfaces;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,6 +13,7 @@ namespace BoardApp.Services.Classes
         private readonly IUserSerializationService _userSerializationService;
         private readonly IBoardSerializationService _boardSerializationService;
         private readonly string _baseDirectory;
+        private readonly string _fileName = "userData.json";
 
         public TestSerializationService(IUserSerializationService userSerializationService, IBoardSerializationService boardSerializationService)
         {
@@ -22,28 +24,40 @@ namespace BoardApp.Services.Classes
 
         public List<UserModel> Deserialize()
         {
+
             var tmpUserList = _userSerializationService.Deserialize<UserModel>();
 
             foreach (var user in tmpUserList)
             {
                 var targetDirectory = Path.Combine(_baseDirectory, "boards", user.Username);
-                
+
                 if (Directory.Exists(targetDirectory))
                 {
                     var files = Directory.GetFiles(targetDirectory);
 
-                    foreach (var file in files)
+                    if (files.Length != 0)
                     {
-                        user.Boards.Add(_boardSerializationService.Deserialize(file));
+                        foreach (var file in files)
+                        {
+                            user.Boards.Add(_boardSerializationService.Deserialize(file));
+                        }
                     }
                 }
             }
 
             return tmpUserList;
+
+
+            //using FileStream stream = new(_fileName, FileMode.OpenOrCreate);
+            //using StreamReader reader = new(stream);
+
+            //string json = reader.ReadToEnd();
+            //return JsonConvert.DeserializeObject<List<UserModel>>(json);
         }
 
         public void Serialize(UserModel user)
         {
+
             var tmpList = Deserialize();
             tmpList.Add(user);
 
@@ -65,6 +79,22 @@ namespace BoardApp.Services.Classes
                     }
                 }
             }
+
+
+            //var tmpList = Deserialize();
+
+            //if (tmpList == null)
+            //{
+            //    tmpList = new();
+            //}
+
+            //tmpList.Add(user);
+
+            //using FileStream stream = new(_fileName, FileMode.OpenOrCreate);
+            //using StreamWriter writer = new(stream);
+
+            //string json = JsonConvert.SerializeObject(tmpList, Formatting.Indented);
+            //writer.Write(json);
         }
     }
 }

@@ -14,19 +14,16 @@ namespace BoardApp.Models
         [JsonProperty("Password")]
         public string Password { get; set; }
 
+        [JsonIgnore]
         public ObservableCollection<BoardModel> Boards{ get; set; }
 
-        public UserModel()
-        {
-            Boards = new();
-        }
-
-        public UserModel(string username, string password, string email)
+        [JsonConstructor]
+        public UserModel(string username, string password, string email, ObservableCollection<BoardModel> boards = null)
         {
             Username = username;
             Password = password;
             Email = email;
-            Boards = new();
+            Boards = (boards == null) ? new() : boards;
         }
     }
 }

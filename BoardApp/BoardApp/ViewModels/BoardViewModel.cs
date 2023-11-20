@@ -37,7 +37,7 @@ namespace BoardApp.ViewModels
             _navigationService = navigationService;
             _messenger = messenger;
 
-            _messenger.Register<BoardDataMessage>(this, message =>
+            _messenger.Register<BoardViewMessage>(this, message =>
             {
                 if (message != null)
                 {

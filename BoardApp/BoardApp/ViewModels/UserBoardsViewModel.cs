@@ -19,7 +19,12 @@ namespace BoardApp.ViewModels
         private readonly ITestSerializationService _testSerializationService;
 
         public UserModel CurrentUser { get; set; }
-        public BoardModel SelectedItem { get; set; }
+        private BoardModel _selectedItem;
+        public BoardModel SelectedItem
+        {
+            get => _selectedItem;
+            set => Set(ref _selectedItem, value);
+        }
 
         public UserBoardsViewModel(INavigationService navigationService, IUserDialogService userDialogService, IDataService dataService, IMessenger messenger, ITestSerializationService testSerializationService)
         {
@@ -28,12 +33,17 @@ namespace BoardApp.ViewModels
             _dataService = dataService;
             _messenger = messenger;
             _testSerializationService = testSerializationService;
+            SelectedItem = new();
 
             _messenger.Register<UserDataMessage>(this, message =>
             {
                 if (message.UserData != null)
                 {
                     CurrentUser = message.UserData as UserModel;
+                    if (CurrentUser.Boards == null)
+                    {
+                        CurrentUser.Boards = new();
+                    }
                 }
             });
 
@@ -74,7 +84,8 @@ namespace BoardApp.ViewModels
         public ICommand NewBoardCommand { get; set; }
         private void OnNewBoardCommandExecuted()
         {
-            _dataService.SendData<BoardModel, BoardDataMessage>(new BoardModel());
+            SelectedItem = new();
+            _dataService.SendData<BoardModel, BoardViewMessage>(SelectedItem);
             _navigationService.NavigateTo<BoardViewModel>();
         }
 
@@ -83,7 +94,14 @@ namespace BoardApp.ViewModels
         #region SelectedItemDoubleClickCommand
 
         public ICommand SelectedItemDoubleClickCommand { get; }
-        private bool CanSelectedItemDoubleClickCommandExecute() => SelectedItem == null;
+        private bool CanSelectedItemDoubleClickCommandExecute()
+        {
+            if (SelectedItem == null)
+            {
+                return false;
+            }
+            return true;
+        }
         private void OnSelectedItemDoubleClickCommandExecuted()
         {
             _dataService.SendData<BoardModel, BoardDataMessage>(SelectedItem);
