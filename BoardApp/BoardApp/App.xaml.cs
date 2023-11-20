@@ -30,7 +30,7 @@ namespace BoardApp
             Container.RegisterSingleton<UserBoardsViewModel>();
             Container.Register<BoardViewModel>(Lifestyle.Transient);
 
-            Container.Register<MainView>(() =>
+            Container.RegisterSingleton<MainView>(() =>
             {
                 var model = Container.GetInstance<MainViewModel>();
                 var window = new MainView { DataContext = model };
@@ -38,17 +38,17 @@ namespace BoardApp
                 model.WindowClosed += (_, _) => window.Close();
                 
                 return window;
-            }, Lifestyle.Transient);
+            });
 
-            Container.Register<BoardView>(() =>
-            {
-                var model = Container.GetInstance<BoardViewModel>();
-                var window = new BoardView { DataContext = model };
+            //Container.Register<BoardView>(() =>
+            //{
+            //    var model = Container.GetInstance<BoardViewModel>();
+            //    var window = new BoardView { DataContext = model };
 
-                model.WindowClosed += (_, _) => window.Close();
+            //    model.WindowClosed += (_, _) => window.Close();
 
-                return window;
-            }, Lifestyle.Transient);
+            //    return window;
+            //}, Lifestyle.Transient);
 
             Container.Verify();
         }

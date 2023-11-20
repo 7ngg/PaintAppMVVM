@@ -6,6 +6,7 @@ using BoardApp.Infrastructure.Regexes;
 using BoardApp.ViewModels.Base;
 using BoardApp.Models;
 using System.Windows.Controls;
+using BoardApp.Messages;
 
 namespace BoardApp.ViewModels
 {
@@ -75,7 +76,7 @@ namespace BoardApp.ViewModels
             {
                 MessageBox.Show("Successful");
 
-                _dataService.SendData(_currentUser);
+                _dataService.SendData<UserModel, UserDataMessage>(_currentUser);
 
                 _navigationService.NavigateTo<UserBoardsViewModel>();
             }

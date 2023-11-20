@@ -15,11 +15,14 @@ namespace BoardApp.Services.Classes
             _messenger = messenger;
         }
 
-        public void SendData<T>(T? data) where T : IData
+        public void SendData<TData, TMessage>(TData? data) 
+            where TData : IData 
+            where TMessage : MyMessageBase<TData>
         {
             if (data != null)
             {
-                _messenger.Send(new UserDataMessage() { UserData = data });
+                var message = (TMessage)Activator.CreateInstance(typeof(TMessage), data);
+                _messenger.Send(message);
             }
             else
             {

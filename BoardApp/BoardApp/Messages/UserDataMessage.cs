@@ -2,8 +2,11 @@
 
 namespace BoardApp.Messages
 {
-    class UserDataMessage
+    class UserDataMessage : MyMessageBase<UserModel>
     {
-        public IData UserData { get; set; }
+        public UserDataMessage(UserModel userData) : base(userData)
+        {
+
+        }
     }
 }

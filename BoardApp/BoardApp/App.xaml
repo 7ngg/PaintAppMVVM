@@ -20,9 +20,9 @@
                 <views:MainView/>
             </DataTemplate>
 
-            <!--<DataTemplate DataType="{x:Type viewModels:BoardViewModel}">
+            <DataTemplate DataType="{x:Type viewModels:BoardViewModel}">
                 <views:BoardView/>
-            </DataTemplate>-->
+            </DataTemplate>
             
             <DataTemplate DataType="{x:Type viewModels:UserBoardsViewModel}">
                 <views:UserBoardsView/>

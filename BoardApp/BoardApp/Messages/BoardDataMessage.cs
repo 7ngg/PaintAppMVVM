@@ -2,8 +2,11 @@
 
 namespace BoardApp.Messages
 {
-    internal class BoardDataMessage
+    public class BoardDataMessage : MyMessageBase<BoardModel>
     {
-        public IData BoardData { get; set; }
+        public BoardDataMessage(BoardModel boardData) : base(boardData)
+        {
+            
+        }
     }
 }

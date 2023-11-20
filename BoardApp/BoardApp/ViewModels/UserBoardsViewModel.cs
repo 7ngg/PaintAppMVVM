@@ -16,16 +16,18 @@ namespace BoardApp.ViewModels
         private readonly IUserDialogService _userDialogService;
         private readonly IDataService _dataService;
         private readonly IMessenger _messenger;
+        private readonly ITestSerializationService _testSerializationService;
 
         public UserModel CurrentUser { get; set; }
         public BoardModel SelectedItem { get; set; }
 
-        public UserBoardsViewModel(INavigationService navigationService, IUserDialogService userDialogService, IDataService dataService, IMessenger messenger)
+        public UserBoardsViewModel(INavigationService navigationService, IUserDialogService userDialogService, IDataService dataService, IMessenger messenger, ITestSerializationService testSerializationService)
         {
             _navigationService = navigationService;
             _userDialogService = userDialogService;
             _dataService = dataService;
             _messenger = messenger;
+            _testSerializationService = testSerializationService;
 
             _messenger.Register<UserDataMessage>(this, message =>
             {
@@ -37,10 +39,11 @@ namespace BoardApp.ViewModels
 
             _messenger.Register<BoardDataMessage>(this, message =>
             {
-                if (message.BoardData != null)
+                if (message.UserData != null)
                 {
-                    var tmpBoard = message.BoardData as BoardModel;
+                    var tmpBoard = message.UserData as BoardModel;
                     CurrentUser.Boards.Add(tmpBoard);
+                    _testSerializationService.Serialize(CurrentUser);
                 }
             });
 
@@ -71,8 +74,8 @@ namespace BoardApp.ViewModels
         public ICommand NewBoardCommand { get; set; }
         private void OnNewBoardCommandExecuted()
         {
-            _dataService.SendData(new BoardModel());
-            _userDialogService.OpenWindow<BoardView>();
+            _dataService.SendData<BoardModel, BoardDataMessage>(new BoardModel());
+            _navigationService.NavigateTo<BoardViewModel>();
         }
 
         #endregion
@@ -83,8 +86,8 @@ namespace BoardApp.ViewModels
         private bool CanSelectedItemDoubleClickCommandExecute() => SelectedItem == null;
         private void OnSelectedItemDoubleClickCommandExecuted()
         {
-            _dataService.SendData(SelectedItem);
-            _userDialogService.OpenWindow<BoardView>();
+            _dataService.SendData<BoardModel, BoardDataMessage>(SelectedItem);
+            _navigationService.NavigateTo<BoardViewModel>();
         }
 
         #endregion
