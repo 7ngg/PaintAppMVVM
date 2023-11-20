@@ -3,32 +3,35 @@ using System.Windows.Input;
 using System.Windows.Controls;
 using BoardApp.ViewModels.Base;
 using BoardApp.Services.Interfaces;
-using System.Windows.Ink;
-using System.IO;
 using BoardApp.Models;
-using GalaSoft.MvvmLight.Messaging;
-using BoardApp.Messages;
+using System.Windows.Ink;
 
 namespace BoardApp.ViewModels
 {
     public class BoardViewModel : MyViewModelBase
     {
-        private readonly IBoardSerializationService _boardSerializationService;
-        
+        private readonly IDataService _dataService;
+        private readonly IUserDialogService _userDialogService;
+
+        #region EditingModeProperty
+
         private InkCanvasEditingMode _currentEditingMode;
-
-        public BoardModel CurrentBoard { get; set; } = new();
-
         public InkCanvasEditingMode CurrentEditingMode
         {
             get => _currentEditingMode;
             set => Set(ref _currentEditingMode, value);
         }
 
+        #endregion
 
-        public BoardViewModel(IBoardSerializationService boardSerializationService)
+        public BoardModel CurrentBoard { get; set; }
+        public StrokeCollection Strokes { get; set; } = new();
+
+
+        public BoardViewModel(IDataService dataService, IUserDialogService userDialogService)
         {
-            _boardSerializationService = boardSerializationService;
+            _dataService = dataService;
+            _userDialogService = userDialogService;
 
             PenButtonCommand = new LambdaCommand(OnPenButtonCommandExecuted);
             EraserButtomCommand = new LambdaCommand(OnEraserButtomCommandExecuted);
@@ -37,7 +40,6 @@ namespace BoardApp.ViewModels
             OnPenButtonCommandExecuted();
         }
 
-        
 
         #region Commands
 
@@ -60,15 +62,8 @@ namespace BoardApp.ViewModels
         private bool CanSaveBoardCommandExecute() => true;
         private void OnSaveBoardCommandExecuted()
         {
-            string rootDirectory = @"C:\Users\tng\itstep-Projects\BoardApp\BoardApp\bin\Debug\net6.0-windows";
-            string targetDirectory = Path.Combine(rootDirectory, CurrentBoard.Name);
-
-            if(!Directory.Exists(targetDirectory))
-            {
-                Directory.CreateDirectory(targetDirectory);
-            }
-
-            _boardSerializationService.Serialize(CurrentBoard);
+            CurrentBoard.Strokes = Strokes;
+            _dataService.SendData(CurrentBoard);
         }
 
         #endregion

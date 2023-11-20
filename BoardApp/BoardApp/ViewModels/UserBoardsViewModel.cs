@@ -6,8 +6,6 @@ using BoardApp.ViewModels.Base;
 using BoardApp.Views;
 using GalaSoft.MvvmLight.Messaging;
 using System.Collections.ObjectModel;
-using System.Reflection.Emit;
-using System.Windows.Ink;
 using System.Windows.Input;
 
 namespace BoardApp.ViewModels
@@ -18,13 +16,6 @@ namespace BoardApp.ViewModels
         private readonly IUserDialogService _userDialogService;
         private readonly IDataService _dataService;
         private readonly IMessenger _messenger;
-
-        private ObservableCollection<BoardModel> _userBoards;
-        public ObservableCollection<BoardModel> UserBoards
-        {
-            get => _userBoards;
-            set => Set(ref _userBoards, value);
-        }
 
         public UserModel CurrentUser { get; set; }
         public BoardModel SelectedItem { get; set; }
@@ -41,6 +32,15 @@ namespace BoardApp.ViewModels
                 if (message.UserData != null)
                 {
                     CurrentUser = message.UserData as UserModel;
+                }
+            });
+
+            _messenger.Register<BoardDataMessage>(this, message =>
+            {
+                if (message.BoardData != null)
+                {
+                    var tmpBoard = message.BoardData as BoardModel;
+                    CurrentUser.Boards.Add(tmpBoard);
                 }
             });
 

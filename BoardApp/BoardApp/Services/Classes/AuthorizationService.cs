@@ -5,16 +5,16 @@ namespace BoardApp.Services.Classes
 {
     internal class AuthorizationService : IAuthorizationService
     {
-        private readonly IUserSerializationService _userSerializationService;
+        private readonly ITestSerializationService _userSerializationService;
 
-        public AuthorizationService(IUserSerializationService userSerializationService)
+        public AuthorizationService(ITestSerializationService userSerializationService)
         {
             _userSerializationService = userSerializationService;
         }
 
         public UserModel SignIn(string username, string password)
         {
-            var list = _userSerializationService.Deserialize<UserModel>();
+            var list = _userSerializationService.Deserialize();
 
             foreach (var item in list)
             {

@@ -1,9 +1,8 @@
-﻿using BoardApp.Models;
-using BoardApp.Services.Interfaces;
+﻿using BoardApp.Services.Interfaces;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.Json;
 
 namespace BoardApp.Services.Classes
 {
@@ -21,20 +20,18 @@ namespace BoardApp.Services.Classes
                 using FileStream stream = new(_fileName, FileMode.OpenOrCreate);
                 using StreamReader reader = new(stream);
                 string json = reader.ReadToEnd();
-                users = JsonSerializer.Deserialize<List<T>>(json) ?? throw new ArgumentNullException(nameof(json));
+                users = JsonConvert.DeserializeObject<List<T>>(json) ?? throw new ArgumentNullException(nameof(json));
             }
 
             return users;
         }
 
-        public void Serialize<T>(T user)
+        public void Serialize<T>(List<T> users)
         {
-            var tmpList = Deserialize<T>();
             using FileStream stream = new(_fileName, FileMode.OpenOrCreate);
             using StreamWriter writer = new(stream);
 
-            tmpList.Add(user);
-            string json = JsonSerializer.Serialize(tmpList);
+            string json = JsonConvert.SerializeObject(users, Formatting.Indented);
             writer.Write(json);
         }
     }

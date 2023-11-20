@@ -5,6 +5,6 @@ namespace BoardApp.Services.Interfaces
     public interface IUserSerializationService
     {
         public List<T> Deserialize<T>();
-        public void Serialize<T>(T user);
+        public void Serialize<T>(List<T> user);
     }
 }

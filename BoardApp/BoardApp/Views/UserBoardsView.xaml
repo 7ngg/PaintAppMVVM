@@ -26,12 +26,11 @@
         </StackPanel>
 
 
-        <ListBox ItemsSource="{Binding UserBoards}"
+        <ListBox ItemsSource="{Binding CurrentUser.Boards}"
                  SelectedItem="{Binding SelectedItem}"
                  Grid.Row="1"
                  Margin="20"
-                 Style="{StaticResource MaterialDesignNavigationAccentListBox}"
-                 >
+                 Style="{StaticResource MaterialDesignNavigationAccentListBox}">
 
             <ListBox.ItemTemplate>
                 <DataTemplate>

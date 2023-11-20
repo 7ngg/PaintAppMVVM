@@ -5,6 +5,6 @@ namespace BoardApp.Services.Interfaces
     public interface IBoardSerializationService
     {
         public BoardModel Deserialize(string fileName);
-        public void Serialize(BoardModel board);
+        public void Serialize(BoardModel board, string targetDirectory);
     }
 }

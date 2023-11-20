@@ -15,9 +15,10 @@ namespace BoardApp.Services.Classes
             return new BoardModel(fileName.Remove(fileName.Length - 5, 4), strokes);
         }
 
-        public void Serialize(BoardModel board)
+        public void Serialize(BoardModel board, string targetDirectory)
         {
-            using FileStream stream = new(board.Name + ".xml", FileMode.Create);
+            targetDirectory = Path.Combine(targetDirectory, board.Name + ".xml");
+            using FileStream stream = new(targetDirectory, FileMode.Create);
             board.Strokes.Save(stream);
         }
     }

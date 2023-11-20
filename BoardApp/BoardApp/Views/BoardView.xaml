@@ -61,7 +61,7 @@
         </StackPanel>
 
         <Border Grid.Column="1" Grid.Row="1">
-            <InkCanvas Background="Gray" EditingMode="{Binding CurrentEditingMode}" Strokes="{Binding CurrentBoardStrokes}">
+            <InkCanvas Background="Gray" EditingMode="{Binding CurrentEditingMode}" Strokes="{Binding Strokes}">
                 <!--<ContentControl Content="{Binding canvas}"/>-->
             </InkCanvas>
         </Border>

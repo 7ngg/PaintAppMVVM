@@ -21,6 +21,7 @@ namespace BoardApp
             Container.RegisterSingleton<IUserDialogService, UserDialogService>();
             Container.RegisterSingleton<IBoardSerializationService, BoardSerializationService>();
             Container.RegisterSingleton<IDataService, DataService>();
+            Container.RegisterSingleton<ITestSerializationService, TestSerializationService>();
 
             Container.RegisterSingleton<MainViewModel>();
             Container.RegisterSingleton<AuthorizationViewModel>();
