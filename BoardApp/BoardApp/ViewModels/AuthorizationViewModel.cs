@@ -6,7 +6,7 @@ using BoardApp.Infrastructure.Regexes;
 using BoardApp.ViewModels.Base;
 using BoardApp.Models;
 using System.Windows.Controls;
-using BoardApp.Messages;
+using BoardApp.Infrastructure.Messages;
 
 namespace BoardApp.ViewModels
 {

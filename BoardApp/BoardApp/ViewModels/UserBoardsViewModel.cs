@@ -1,6 +1,6 @@
 ﻿using BoardApp.Converters;
 using BoardApp.Infrastructure.Commands;
-using BoardApp.Messages;
+using BoardApp.Infrastructure.Messages;
 using BoardApp.Models;
 using BoardApp.Services.Interfaces;
 using BoardApp.ViewModels.Base;

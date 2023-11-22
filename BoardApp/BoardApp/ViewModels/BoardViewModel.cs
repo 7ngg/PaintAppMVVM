@@ -3,12 +3,11 @@ using System.Windows.Input;
 using System.Windows.Controls;
 using BoardApp.ViewModels.Base;
 using BoardApp.Services.Interfaces;
-using BoardApp.Messages;
 using GalaSoft.MvvmLight.Messaging;
 using BoardApp.Models;
-using System.Collections.Generic;
 using System.Windows.Ink;
 using BoardApp.Converters;
+using BoardApp.Infrastructure.Messages;
 
 namespace BoardApp.ViewModels
 {

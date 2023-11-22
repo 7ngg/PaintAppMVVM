@@ -1,6 +1,6 @@
 ﻿using BoardApp.ViewModels.Base;
 
-namespace BoardApp.Messages
+namespace BoardApp.Infrastructure.Messages
 {
     public class NavigationMessage
     {

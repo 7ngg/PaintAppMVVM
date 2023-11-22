@@ -1,12 +1,13 @@
-﻿using BoardApp.Models;
+﻿using BoardApp.Infrastructure.Messages.Base;
+using BoardApp.Models;
 
-namespace BoardApp.Messages
+namespace BoardApp.Infrastructure.Messages
 {
     public class BoardDataMessage : MyMessageBase<Board>
     {
         public BoardDataMessage(Board boardData) : base(boardData)
         {
-            
+
         }
     }
 }

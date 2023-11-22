@@ -45,21 +45,21 @@
 
             <Button Command="{Binding SignOutCommand}"
                     Margin="0 0 10 0"
-                    Width="130" Height="53" FontSize="18"
+                    Width="110" Height="53" FontSize="18"
                     Style="{DynamicResource MaterialDesignFlatDarkBgButton}"
                     md:ButtonAssist.CornerRadius="10"
                     Content="Sing Out"/>
 
             <Button Command="{Binding NewBoardCommand}"
                     Margin="0 0 10 0"
-                    Width="130" Height="53" FontSize="18"
-                    
+                    Width="110" Height="53" FontSize="18"
+                    Style="{DynamicResource MaterialDesignFlatDarkBgButton}"
                     md:ButtonAssist.CornerRadius="10"
-                    Content="New Board"/>
+                    Content="New"/>
 
             <Button Command="{Binding SelectedItemDoubleClickCommand}"
                     Margin="0 0 0 0"
-                    Width="130" Height="53" FontSize="18"
+                    Width="110" Height="53" FontSize="18"
                     Style="{DynamicResource MaterialDesignFlatDarkBgButton}"
                     md:ButtonAssist.CornerRadius="10"
                     Content="Open"/>

@@ -1,6 +1,7 @@
-﻿using BoardApp.Models;
+﻿using BoardApp.Infrastructure.Messages.Base;
+using BoardApp.Models;
 
-namespace BoardApp.Messages
+namespace BoardApp.Infrastructure.Messages
 {
     class UserDataMessage : MyMessageBase<UserModel>
     {

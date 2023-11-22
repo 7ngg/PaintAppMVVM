@@ -1,4 +1,4 @@
-﻿using BoardApp.Messages;
+﻿using BoardApp.Infrastructure.Messages;
 using BoardApp.Services.Interfaces;
 using BoardApp.ViewModels.Base;
 using GalaSoft.MvvmLight.Messaging;

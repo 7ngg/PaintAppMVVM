@@ -1,4 +1,5 @@
-﻿using BoardApp.Models;
+﻿using BoardApp.Infrastructure.Messages.Base;
+using BoardApp.Models;
 
 namespace BoardApp.Services.Interfaces
 {
