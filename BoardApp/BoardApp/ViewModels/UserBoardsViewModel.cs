@@ -68,7 +68,7 @@ namespace BoardApp.ViewModels
         public ICommand NewBoardCommand { get; set; }
         private void OnNewBoardCommandExecuted()
         {
-            _dataService.SendData<Board, BoardViewMessage>(new Board() { Name = "DANUNAXUY" });
+            _dataService.SendData<Board, BoardViewMessage>(new Board());
             _navigationService.NavigateTo<BoardViewModel>();
         }
 

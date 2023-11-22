@@ -57,7 +57,7 @@ namespace BoardApp.ViewModels
 
             PenButtonCommand = new LambdaCommand(OnPenButtonCommandExecuted);
             EraserButtomCommand = new LambdaCommand(OnEraserButtomCommandExecuted);
-            SaveBoardCommand = new LambdaCommand(OnSaveBoardCommandExecuted);
+            SaveBoardCommand = new LambdaCommand(OnSaveBoardCommandExecuted, CanSaveBoardCommandExecute);
             GoBackCommand = new LambdaCommand(OnGoBackCommandExecuted);
 
             OnPenButtonCommandExecuted();
@@ -82,6 +82,7 @@ namespace BoardApp.ViewModels
 
         #region SaveBoardCommand
         public ICommand SaveBoardCommand { get; }
+        private bool CanSaveBoardCommandExecute() => !string.IsNullOrEmpty(CurrentBoard.Name);
         private void OnSaveBoardCommandExecuted()
         {
             CurrentBoard.Strokes = BoardConverter.ConvertObject(Strokes);

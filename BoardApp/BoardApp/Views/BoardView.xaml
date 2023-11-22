@@ -19,7 +19,8 @@
             <RowDefinition Height="0.05*"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="1" Grid.Column="1" Content="{Binding CurrentBoard.Name}"/>
+        <!--<Label Grid.Row="1" Grid.Column="1" Content="{Binding CurrentBoard.Name}"/>-->
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding CurrentBoard.Name, UpdateSourceTrigger=PropertyChanged}"/>
 
         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
             <Button Command="{Binding SaveBoardCommand}"
@@ -74,7 +75,7 @@
             <Button Margin="0 0 0 5"
                     Style="{DynamicResource MaterialDesignFlatButton}"
                     Padding="5"
-                    Command="{Binding SaveBoardCommand}">
+                    Command="{Binding GoBackCommand}">
 
                 <md:PackIcon Kind="ArrowBack"/>
 
