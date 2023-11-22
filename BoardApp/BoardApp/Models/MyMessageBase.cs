@@ -1,5 +1,4 @@
-﻿
-namespace BoardApp.Models
+﻿namespace BoardApp.Models
 {
     public class MyMessageBase<TData>
     {

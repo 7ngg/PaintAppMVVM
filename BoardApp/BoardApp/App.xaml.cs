@@ -16,19 +16,17 @@ namespace BoardApp
         {
             Container.RegisterSingleton<IMessenger, Messenger>();
             Container.RegisterSingleton<INavigationService, NavigationService>();
-            Container.RegisterSingleton<IUserSerializationService, UserSerializationService>();
             Container.RegisterSingleton<IAuthorizationService, AuthorizationService>();
             Container.RegisterSingleton<IUserDialogService, UserDialogService>();
-            Container.RegisterSingleton<IBoardSerializationService, BoardSerializationService>();
             Container.RegisterSingleton<IDataService, DataService>();
-            Container.RegisterSingleton<ITestSerializationService, TestSerializationService>();
+            Container.RegisterSingleton<ISerializationService, SerializationService>();
 
             Container.RegisterSingleton<MainViewModel>();
             Container.RegisterSingleton<AuthorizationViewModel>();
             Container.RegisterSingleton<SignUpViewModel>();
 
             Container.RegisterSingleton<UserBoardsViewModel>();
-            Container.Register<BoardViewModel>(Lifestyle.Transient);
+            Container.RegisterSingleton<BoardViewModel>();
 
             Container.RegisterSingleton<MainView>(() =>
             {
@@ -39,16 +37,6 @@ namespace BoardApp
                 
                 return window;
             });
-
-            //Container.Register<BoardView>(() =>
-            //{
-            //    var model = Container.GetInstance<BoardViewModel>();
-            //    var window = new BoardView { DataContext = model };
-
-            //    model.WindowClosed += (_, _) => window.Close();
-
-            //    return window;
-            //}, Lifestyle.Transient);
 
             Container.Verify();
         }

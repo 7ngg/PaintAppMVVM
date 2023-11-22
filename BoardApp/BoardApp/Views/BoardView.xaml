@@ -15,40 +15,13 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
             <RowDefinition/>
+            <RowDefinition Height="0.05*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+        <Label Grid.Row="1" Grid.Column="1" Content="{Binding CurrentBoard.Name}"/>
 
-            <Button 
-                    Command="{Binding MinimizeCommand}"
-                    Height="30"
-                    Style="{DynamicResource MaterialDesignFlatButton}">
-
-                <md:PackIcon Kind="Minimize"/>
-
-            </Button>
-
-            <Button 
-                    Height="30"
-                    Style="{DynamicResource MaterialDesignFlatButton}">
-
-
-                <md:PackIcon Kind="Maximize"/>
-
-            </Button>
-            <Button 
-                    Height="30"
-                    Style="{DynamicResource MaterialDesignFlatButton}">
-
-                <md:PackIcon Kind="Close"/>
-
-            </Button>
-
-        </StackPanel>
-
-        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
+        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
             <Button Command="{Binding SaveBoardCommand}"
                     Height="30"
                     Style="{DynamicResource MaterialDesignFlatButton}">
@@ -58,15 +31,16 @@
             </Button>
         </StackPanel>
 
-        <Border Grid.Column="1" Grid.Row="1">
-            <InkCanvas Background="Gray" EditingMode="{Binding CurrentEditingMode}" Strokes="{Binding Strokes}">
-                <!--<ContentControl Content="{Binding canvas}"/>-->
+        <Border Grid.Column="1">
+            <InkCanvas Background="Gray" EditingMode="{Binding CurrentEditingMode}" Strokes="{Binding Strokes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                
             </InkCanvas>
         </Border>
 
-        <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center">
+        <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center">
 
-            <ToggleButton Style="{DynamicResource MaterialDesignFlatButton}"
+            <ToggleButton Margin="0 5 0 0"
+                          Style="{DynamicResource MaterialDesignFlatButton}"
                           Padding="5"
                           IsChecked="True"
                           Command="{Binding PenButtonCommand}">
@@ -83,6 +57,28 @@
                 <md:PackIcon Kind="Eraser"/>
 
             </ToggleButton>
+
+        </StackPanel>
+
+        <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+
+            <Button Margin="0 0 0 5"
+                    Style="{DynamicResource MaterialDesignFlatButton}"
+                    Padding="5"
+                    Command="{Binding SaveBoardCommand}">
+
+                <md:PackIcon Kind="ContentSave"/>
+
+            </Button>
+
+            <Button Margin="0 0 0 5"
+                    Style="{DynamicResource MaterialDesignFlatButton}"
+                    Padding="5"
+                    Command="{Binding SaveBoardCommand}">
+
+                <md:PackIcon Kind="ArrowBack"/>
+
+            </Button>
 
         </StackPanel>
 

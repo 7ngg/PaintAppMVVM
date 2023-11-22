@@ -1,4 +1,5 @@
-﻿using BoardApp.Infrastructure.Commands;
+﻿using BoardApp.Converters;
+using BoardApp.Infrastructure.Commands;
 using BoardApp.Messages;
 using BoardApp.Models;
 using BoardApp.Services.Interfaces;
@@ -16,34 +17,24 @@ namespace BoardApp.ViewModels
         private readonly IUserDialogService _userDialogService;
         private readonly IDataService _dataService;
         private readonly IMessenger _messenger;
-        private readonly ITestSerializationService _testSerializationService;
+        private readonly ISerializationService _serializationService;
 
         public UserModel CurrentUser { get; set; }
-        private BoardModel _selectedItem;
-        public BoardModel SelectedItem
-        {
-            get => _selectedItem;
-            set => Set(ref _selectedItem, value);
-        }
+        public Board SelectedItem { get; set; }
 
-        public UserBoardsViewModel(INavigationService navigationService, IUserDialogService userDialogService, IDataService dataService, IMessenger messenger, ITestSerializationService testSerializationService)
+        public UserBoardsViewModel(INavigationService navigationService, IUserDialogService userDialogService, IDataService dataService, IMessenger messenger, ISerializationService serializationService)
         {
             _navigationService = navigationService;
             _userDialogService = userDialogService;
             _dataService = dataService;
             _messenger = messenger;
-            _testSerializationService = testSerializationService;
-            SelectedItem = new();
+            _serializationService = serializationService;
 
             _messenger.Register<UserDataMessage>(this, message =>
             {
                 if (message.UserData != null)
                 {
-                    CurrentUser = message.UserData as UserModel;
-                    if (CurrentUser.Boards == null)
-                    {
-                        CurrentUser.Boards = new();
-                    }
+                    CurrentUser = message.UserData;
                 }
             });
 
@@ -51,22 +42,15 @@ namespace BoardApp.ViewModels
             {
                 if (message.UserData != null)
                 {
-                    var tmpBoard = message.UserData as BoardModel;
-                    CurrentUser.Boards.Add(tmpBoard);
-                    _testSerializationService.Serialize(CurrentUser);
+                    var tmpBoard = message.UserData;
+                    AddBoardToCurrentUser(tmpBoard);
+                    _serializationService.Serialize(CurrentUser);
                 }
             });
 
             SignOutCommand = new LambdaCommand(OnSignOutCommandExecuted);
             NewBoardCommand = new LambdaCommand(OnNewBoardCommandExecuted);
             SelectedItemDoubleClickCommand = new LambdaCommand(OnSelectedItemDoubleClickCommandExecuted, CanSelectedItemDoubleClickCommandExecute);
-
-            //UserBoards = new()
-            //{
-            //    new BoardModel("Board 1", new StrokeCollection()),
-            //    new BoardModel("Board 2", new StrokeCollection()),
-            //    new BoardModel("Board 3", new StrokeCollection()),
-            //};
         }
 
 
@@ -84,8 +68,7 @@ namespace BoardApp.ViewModels
         public ICommand NewBoardCommand { get; set; }
         private void OnNewBoardCommandExecuted()
         {
-            SelectedItem = new();
-            _dataService.SendData<BoardModel, BoardViewMessage>(SelectedItem);
+            _dataService.SendData<Board, BoardViewMessage>(new Board() { Name = "DANUNAXUY" });
             _navigationService.NavigateTo<BoardViewModel>();
         }
 
@@ -104,11 +87,35 @@ namespace BoardApp.ViewModels
         }
         private void OnSelectedItemDoubleClickCommandExecuted()
         {
-            _dataService.SendData<BoardModel, BoardDataMessage>(SelectedItem);
+            _dataService.SendData<Board, BoardViewMessage>(SelectedItem);
             _navigationService.NavigateTo<BoardViewModel>();
         }
 
         #endregion
+
+        #endregion
+
+        #region Methods
+
+        private void AddBoardToCurrentUser(Board board)
+        {
+            bool boardExists = false;
+
+            foreach (var item in CurrentUser.Boards)    
+            {
+                if (item.Name == board.Name)
+                {
+                    item.Name = board.Name;
+                    item.Strokes = board.Strokes;
+                    boardExists = true;
+                }
+            }
+
+            if (!boardExists)
+            {
+                CurrentUser.Boards.Add(board);
+            }
+        }
 
         #endregion
     }

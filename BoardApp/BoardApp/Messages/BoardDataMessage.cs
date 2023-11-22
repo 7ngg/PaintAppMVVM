@@ -2,9 +2,9 @@
 
 namespace BoardApp.Messages
 {
-    public class BoardDataMessage : MyMessageBase<BoardModel>
+    public class BoardDataMessage : MyMessageBase<Board>
     {
-        public BoardDataMessage(BoardModel boardData) : base(boardData)
+        public BoardDataMessage(Board boardData) : base(boardData)
         {
             
         }

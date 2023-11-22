@@ -3,10 +3,12 @@ using System.Windows.Input;
 using System.Windows.Controls;
 using BoardApp.ViewModels.Base;
 using BoardApp.Services.Interfaces;
-using BoardApp.Models;
-using System.Windows.Ink;
 using BoardApp.Messages;
 using GalaSoft.MvvmLight.Messaging;
+using BoardApp.Models;
+using System.Collections.Generic;
+using System.Windows.Ink;
+using BoardApp.Converters;
 
 namespace BoardApp.ViewModels
 {
@@ -27,9 +29,13 @@ namespace BoardApp.ViewModels
 
         #endregion
 
-        public BoardModel CurrentBoard { get; set; } = new();
-        public StrokeCollection Strokes { get; set; } = new();
-
+        public Board CurrentBoard { get; set; }
+        private StrokeCollection _strokes;
+        public StrokeCollection Strokes
+        {
+            get => _strokes;
+            set => Set(ref _strokes, value);
+        }
 
         public BoardViewModel(IDataService dataService, INavigationService navigationService, IMessenger messenger)
         {
@@ -37,17 +43,22 @@ namespace BoardApp.ViewModels
             _navigationService = navigationService;
             _messenger = messenger;
 
+            CurrentBoard = new();
+            Strokes = new();
+
             _messenger.Register<BoardViewMessage>(this, message =>
             {
                 if (message != null)
                 {
-                    CurrentBoard = message.UserData as BoardModel;
+                    CurrentBoard = message.UserData as Board;
+                    Strokes = BoardConverter.RevertObject(message.UserData.Strokes);
                 }
             });
 
             PenButtonCommand = new LambdaCommand(OnPenButtonCommandExecuted);
             EraserButtomCommand = new LambdaCommand(OnEraserButtomCommandExecuted);
-            SaveBoardCommand = new LambdaCommand(OnSaveBoardCommandExecuted, CanSaveBoardCommandExecute);
+            SaveBoardCommand = new LambdaCommand(OnSaveBoardCommandExecuted);
+            GoBackCommand = new LambdaCommand(OnGoBackCommandExecuted);
 
             OnPenButtonCommandExecuted();
         }
@@ -71,11 +82,20 @@ namespace BoardApp.ViewModels
 
         #region SaveBoardCommand
         public ICommand SaveBoardCommand { get; }
-        private bool CanSaveBoardCommandExecute() => true;
         private void OnSaveBoardCommandExecuted()
         {
-            CurrentBoard.Strokes = Strokes;
-            _dataService.SendData<BoardModel, BoardDataMessage>(CurrentBoard);
+            CurrentBoard.Strokes = BoardConverter.ConvertObject(Strokes);
+            _dataService.SendData<Board, BoardDataMessage>(CurrentBoard);
+            _navigationService.NavigateTo<UserBoardsViewModel>();
+        }
+
+        #endregion
+
+        #region GoBackCommand
+
+        public ICommand GoBackCommand { get; }
+        private void OnGoBackCommandExecuted()
+        {
             _navigationService.NavigateTo<UserBoardsViewModel>();
         }
 
