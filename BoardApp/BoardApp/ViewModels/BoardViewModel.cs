@@ -86,6 +86,7 @@ namespace BoardApp.ViewModels
         {
             CurrentBoard.Strokes = BoardConverter.ConvertObject(Strokes);
             _dataService.SendData<Board, BoardDataMessage>(CurrentBoard);
+            _dataService.SendData<WindowPropertyModel, WindowPropertyMessage>(new(450, 760));
             _navigationService.NavigateTo<UserBoardsViewModel>();
         }
 
@@ -96,6 +97,7 @@ namespace BoardApp.ViewModels
         public ICommand GoBackCommand { get; }
         private void OnGoBackCommandExecuted()
         {
+            _dataService.SendData<WindowPropertyModel, WindowPropertyMessage>(new(450, 760));
             _navigationService.NavigateTo<UserBoardsViewModel>();
         }
 

@@ -68,6 +68,7 @@ namespace BoardApp.ViewModels
         public ICommand NewBoardCommand { get; set; }
         private void OnNewBoardCommandExecuted()
         {
+            _dataService.SendData<WindowPropertyModel, WindowPropertyMessage>(new(550, 950));
             _dataService.SendData<Board, BoardViewMessage>(new Board());
             _navigationService.NavigateTo<BoardViewModel>();
         }
@@ -87,6 +88,7 @@ namespace BoardApp.ViewModels
         }
         private void OnSelectedItemDoubleClickCommandExecuted()
         {
+            _dataService.SendData<WindowPropertyModel, WindowPropertyMessage>(new(950, 750));
             _dataService.SendData<Board, BoardViewMessage>(SelectedItem);
             _navigationService.NavigateTo<BoardViewModel>();
         }

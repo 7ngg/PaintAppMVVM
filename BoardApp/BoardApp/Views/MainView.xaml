@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BoardApp.Views"
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainView" Height="760" Width="450"
+        Title="MainView" Height="{Binding WindowHeight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="{Binding WindowWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
         TextElement.Foreground="{StaticResource MaterialDesign.Brush.Primary}"
         Background="Transparent"
         AllowsTransparency="True"
