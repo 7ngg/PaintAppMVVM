@@ -20,7 +20,7 @@
         </Grid.RowDefinitions>
 
         <!--<Label Grid.Row="1" Grid.Column="1" Content="{Binding CurrentBoard.Name}"/>-->
-        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding CurrentBoard.Name, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Row="1" Grid.Column="1" md:HintAssist.Hint="Board Name" Text="{Binding CurrentBoard.Name, UpdateSourceTrigger=PropertyChanged}"/>
 
         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
             <Button Command="{Binding SaveBoardCommand}"
