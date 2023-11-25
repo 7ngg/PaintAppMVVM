@@ -15,10 +15,10 @@ namespace BoardApp.Services.Classes
         public UserModel SignIn(string username, string password)
         {
             var list = _serializationService.Deserialize<UserModel>();
-
+            
             foreach (var item in list)
             {
-                if (item.Username == username && item.Password == password)
+                if (item.Username == username && BCrypt.Net.BCrypt.EnhancedVerify(password, item.Password))
                 {
                     return new UserModel(item.Username, item.Password, item.Email)
                     {
@@ -32,7 +32,7 @@ namespace BoardApp.Services.Classes
 
         public void SignUp(string username, string password, string email)
         {
-            var newUser = new UserModel(username, password, email);
+            var newUser = new UserModel(username, BCrypt.Net.BCrypt.EnhancedHashPassword(password), email);
             _serializationService.Serialize(newUser);
         }
     }
