@@ -19,18 +19,7 @@
             <RowDefinition Height="0.05*"/>
         </Grid.RowDefinitions>
 
-        <!--<Label Grid.Row="1" Grid.Column="1" Content="{Binding CurrentBoard.Name}"/>-->
         <TextBox Grid.Row="1" Grid.Column="1" md:HintAssist.Hint="Board Name" Text="{Binding CurrentBoard.Name, UpdateSourceTrigger=PropertyChanged}"/>
-
-        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left">
-            <Button Command="{Binding SaveBoardCommand}"
-                    Height="30"
-                    Style="{DynamicResource MaterialDesignFlatButton}">
-
-                <md:PackIcon Kind="ContentSave"/>
-
-            </Button>
-        </StackPanel>
 
         <Border Grid.Column="1">
             <InkCanvas Background="Gray" EditingMode="{Binding CurrentEditingMode}" Strokes="{Binding Strokes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
@@ -52,12 +41,20 @@
 
             <ToggleButton Style="{DynamicResource MaterialDesignFlatButton}"
                           Padding="5"
-                          IsChecked="True"
+                          IsChecked="False"
                           Command="{Binding EraserButtomCommand}">
 
                 <md:PackIcon Kind="Eraser"/>
 
             </ToggleButton>
+
+            <Button Style="{DynamicResource MaterialDesignFlatButton}"
+                    Padding="5"
+                    Command="">
+
+                <md:PackIcon Kind="Color"/>
+
+            </Button>
 
         </StackPanel>
 
