@@ -4,6 +4,8 @@ using BoardApp.Models;
 using BoardApp.Services.Interfaces;
 using BoardApp.ViewModels.Base;
 using GalaSoft.MvvmLight.Messaging;
+using System;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace BoardApp.ViewModels
@@ -17,7 +19,6 @@ namespace BoardApp.ViewModels
         private readonly ISerializationService _serializationService;
 
         public UserModel CurrentUser { get; set; }
-        public Board SelectedItem { get; set; }
 
         public UserBoardsViewModel(INavigationService navigationService, IUserDialogService userDialogService, IDataService dataService, IMessenger messenger, ISerializationService serializationService)
         {
@@ -75,18 +76,18 @@ namespace BoardApp.ViewModels
         #region SelectedItemDoubleClickCommand
 
         public ICommand SelectedItemDoubleClickCommand { get; }
-        private bool CanSelectedItemDoubleClickCommandExecute()
+        private bool CanSelectedItemDoubleClickCommandExecute(object selectedBoard)
         {
-            if (SelectedItem == null)
+            if (selectedBoard == null)
             {
                 return false;
             }
             return true;
         }
-        private void OnSelectedItemDoubleClickCommandExecuted()
+        private void OnSelectedItemDoubleClickCommandExecuted(object selectedBoard)
         {
             _dataService.SendData<WindowPropertyModel, WindowPropertyMessage>(new(950, 750));
-            _dataService.SendData<Board, BoardViewMessage>(SelectedItem);
+            _dataService.SendData<Board, BoardViewMessage>(selectedBoard as Board);
             _navigationService.NavigateTo<BoardViewModel>();
         }
 

@@ -103,16 +103,6 @@ namespace BoardApp.ViewModels
 
         #endregion
 
-        #region ColorPickerCommand
-        
-        public ICommand ColorPickerCommand { get; }
-        private void OnColorPickerCommandExecuted()
-        {
-
-        }
-
-        #endregion
-
         #endregion
     }
 }

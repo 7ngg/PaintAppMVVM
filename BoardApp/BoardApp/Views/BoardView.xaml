@@ -48,14 +48,6 @@
 
             </ToggleButton>
 
-            <Button Style="{DynamicResource MaterialDesignFlatButton}"
-                    Padding="5"
-                    Command="">
-
-                <md:PackIcon Kind="Color"/>
-
-            </Button>
-
         </StackPanel>
 
         <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Bottom">

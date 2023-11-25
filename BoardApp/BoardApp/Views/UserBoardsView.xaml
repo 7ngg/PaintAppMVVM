@@ -4,9 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:local="clr-namespace:BoardApp.Views"
+             xmlns:local="clr-namespace:BoardApp.Views" xmlns:viewmodels="clr-namespace:BoardApp.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:UserBoardsViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="760" d:DesignWidth="450">
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.1*"/>
@@ -26,18 +27,24 @@
         </StackPanel>
 
 
-        <ListBox ItemsSource="{Binding CurrentUser.Boards}"
-                 SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 Grid.Row="1"
-                 Margin="20">
+        <ItemsControl ItemsSource="{Binding CurrentUser.Boards}"
+                      Grid.Row="1"
+                      Margin="20">
 
-            <ListBox.ItemTemplate>
+            <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Label Content="{Binding Name}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Dark.Foreground}"/>
+                    <Button Style="{DynamicResource MaterialDesignFlatButton}" 
+                            BorderBrush="Transparent" Background="Transparent" 
+                            Command="{Binding DataContext.SelectedItemDoubleClickCommand, 
+                                      RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}}" 
+                            CommandParameter="{Binding .}">
+                        
+                        <Label Content="{Binding Name}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Dark.Foreground}"/>
+                    </Button>
                 </DataTemplate>
-            </ListBox.ItemTemplate>
+            </ItemsControl.ItemTemplate>
             
-        </ListBox>
+        </ItemsControl>
 
         <StackPanel Grid.Row="2"
                     Orientation="Horizontal"
@@ -51,18 +58,12 @@
                     Content="Sing Out"/>
 
             <Button Command="{Binding NewBoardCommand}"
-                    Margin="0 0 10 0"
+                    Margin="0 0 0 0"
                     Width="110" Height="53" FontSize="18"
                     Style="{DynamicResource MaterialDesignFlatDarkBgButton}"
                     md:ButtonAssist.CornerRadius="10"
                     Content="New"/>
 
-            <Button Command="{Binding SelectedItemDoubleClickCommand}"
-                    Margin="0 0 0 0"
-                    Width="110" Height="53" FontSize="18"
-                    Style="{DynamicResource MaterialDesignFlatDarkBgButton}"
-                    md:ButtonAssist.CornerRadius="10"
-                    Content="Open"/>
 
         </StackPanel>
         

@@ -1,6 +1,5 @@
 ﻿using BoardApp.Infrastructure.Commands;
 using BoardApp.Services.Interfaces;
-using System.Windows;
 using System.Windows.Input;
 using BoardApp.Infrastructure.Regexes;
 using BoardApp.ViewModels.Base;
@@ -74,8 +73,6 @@ namespace BoardApp.ViewModels
                 
             if (_currentUser != null)
             {
-                MessageBox.Show("Successful");
-
                 _dataService.SendData<UserModel, UserDataMessage>(_currentUser);
 
                 _navigationService.NavigateTo<UserBoardsViewModel>();
