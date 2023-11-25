@@ -1,12 +1,9 @@
-﻿using BoardApp.Converters;
-using BoardApp.Infrastructure.Commands;
+﻿using BoardApp.Infrastructure.Commands;
 using BoardApp.Infrastructure.Messages;
 using BoardApp.Models;
 using BoardApp.Services.Interfaces;
 using BoardApp.ViewModels.Base;
-using BoardApp.Views;
 using GalaSoft.MvvmLight.Messaging;
-using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace BoardApp.ViewModels
@@ -68,7 +65,7 @@ namespace BoardApp.ViewModels
         public ICommand NewBoardCommand { get; set; }
         private void OnNewBoardCommandExecuted()
         {
-            _dataService.SendData<WindowPropertyModel, WindowPropertyMessage>(new(550, 950));
+            _dataService.SendData<WindowPropertyModel, WindowPropertyMessage>(new(950, 750));
             _dataService.SendData<Board, BoardViewMessage>(new Board());
             _navigationService.NavigateTo<BoardViewModel>();
         }

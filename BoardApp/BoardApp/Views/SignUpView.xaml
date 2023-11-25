@@ -14,78 +14,76 @@
         <cr:PasswordConverter x:Key="MyConv"></cr:PasswordConverter>
     </UserControl.Resources>
 
-    <md:Card Background="Transparent">
+    <Grid Background="Transparent">
 
-        <md:DialogHost CloseOnClickAway="True" x:Name="DialogHost">
-            <StackPanel>
+        <StackPanel>
 
-                <TextBlock Margin="0 45 0 5" HorizontalAlignment="Center" FontSize="28" FontWeight="Bold" Text="Welcome To The Club"/>
-                <TextBlock FontFamily="17" FontWeight="SemiBold" HorizontalAlignment="Center" Text="Sing Up"/>
+            <TextBlock Margin="0 45 0 5" HorizontalAlignment="Center" FontSize="28" FontWeight="Bold" Text="Welcome To The Club"/>
+            <TextBlock FontFamily="17" FontWeight="SemiBold" HorizontalAlignment="Center" Text="Sing Up"/>
 
-                <TextBox Margin="0 50 0 0" 
-                         Name="Username"
+            <TextBox Margin="0 50 0 0" 
+                     Name="Username"
+                     Width="300" FontSize="18" 
+                     md:HintAssist.Hint="Username" 
+                     BorderThickness="2"
+                     BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark.Foreground}"
+                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                     Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <TextBox Margin="0 20 0 0" 
+                     Name="Email"
+                     Width="300" FontSize="18" 
+                     md:HintAssist.Hint="Email" 
+                     BorderThickness="2"
+                     BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark.Foreground}"
+                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                     Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <PasswordBox Margin="0 20 0 0" 
+                         Name="password"
                          Width="300" FontSize="18" 
-                         md:HintAssist.Hint="Username" 
+                         md:HintAssist.Hint="Password" 
                          BorderThickness="2"
                          BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark.Foreground}"
-                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                         Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
+                         Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}"/>
 
-                <TextBox Margin="0 20 0 0" 
-                         Name="Email"
+            <PasswordBox Margin="0 20 0 0" 
+                         Name="confirmPassword"
                          Width="300" FontSize="18" 
-                         md:HintAssist.Hint="Email" 
+                         md:HintAssist.Hint="Password" 
                          BorderThickness="2"
                          BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark.Foreground}"
-                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                         Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"/>
+                         Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}"/>
 
-                <PasswordBox Margin="0 20 0 0" 
-                             Name="password"
-                             Width="300" FontSize="18" 
-                             md:HintAssist.Hint="Password" 
-                             BorderThickness="2"
-                             BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark.Foreground}"
-                             Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}"/>
-
-                <PasswordBox Margin="0 20 0 0" 
-                             Name="confirmPassword"
-                             Width="300" FontSize="18" 
-                             md:HintAssist.Hint="Password" 
-                             BorderThickness="2"
-                             BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark.Foreground}"
-                             Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}"/>
-
-                <Button Command="{Binding SignUpCommand}"
-                        Margin="0 20 0 0"
-                        Style="{StaticResource MaterialDesignFlatDarkBgButton}"
-                        Height="53"
-                        Width="300"
-                        md:ButtonAssist.CornerRadius="10"
-                        FontSize="18"
-                        Content="Sign Up">
+            <Button Command="{Binding SignUpCommand}"
+                    Margin="0 20 0 0"
+                    Style="{StaticResource MaterialDesignFlatDarkBgButton}"
+                    Height="53"
+                    Width="300"
+                    md:ButtonAssist.CornerRadius="10"
+                    FontSize="18"
+                    Content="Sign Up">
                     
-                    <Button.CommandParameter>
-                        <MultiBinding Converter="{StaticResource MyConv}">
-                            <Binding ElementName="password"/>
-                            <Binding ElementName="confirmPassword"/>
-                        </MultiBinding>
-                    </Button.CommandParameter>
+                <Button.CommandParameter>
+                    <MultiBinding Converter="{StaticResource MyConv}">
+                        <Binding ElementName="password"/>
+                        <Binding ElementName="confirmPassword"/>
+                    </MultiBinding>
+                </Button.CommandParameter>
                     
-                </Button>
+            </Button>
 
-                <Button Command="{Binding GoBackCommand}"
-                        Style="{DynamicResource MaterialDesignFlatButton}"
-                        Height="40"
-                        HorizontalAlignment="Center"
-                        Margin="20">
-                    <md:PackIcon Kind="ArrowBack"/>
+            <Button Command="{Binding GoBackCommand}"
+                    Style="{DynamicResource MaterialDesignFlatButton}"
+                    Height="40"
+                    HorizontalAlignment="Center"
+                    Margin="20">
+                <md:PackIcon Kind="ArrowBack"/>
 
-                </Button>
+            </Button>
 
-            </StackPanel>
-        </md:DialogHost>
+        </StackPanel>
 
-    </md:Card>
+    </Grid>
     
 </UserControl>

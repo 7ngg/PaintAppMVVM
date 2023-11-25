@@ -20,11 +20,12 @@ namespace BoardApp
             Container.RegisterSingleton<IUserDialogService, UserDialogService>();
             Container.RegisterSingleton<IDataService, DataService>();
             Container.RegisterSingleton<ISerializationService, SerializationService>();
+            Container.RegisterSingleton<IOTPService, OTPService>();
 
             Container.RegisterSingleton<MainViewModel>();
             Container.RegisterSingleton<AuthorizationViewModel>();
             Container.RegisterSingleton<SignUpViewModel>();
-
+            Container.RegisterSingleton<EmailConfirmationViewModel>();
             Container.RegisterSingleton<UserBoardsViewModel>();
             Container.RegisterSingleton<BoardViewModel>();
 
